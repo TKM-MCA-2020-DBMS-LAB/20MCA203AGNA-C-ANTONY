@@ -1,0 +1,122 @@
+(1)show databases
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+6 rows in set (0.00 sec)
+
+(2)create database Organisation
+mysql> create database Organisation;
+Query OK, 1 row affected (0.01 sec)
+(3)check the database
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| organisation       |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.01 sec)
+(4)select current database
+mysql> USE organisation;
+Database changed
+
+(5)create table employee with constrains(emp_no,emp_name,DOB,address,doj,mob_no,dept_no,salary)
+mysql> create table employee( 
+    -> emp_no int(15),
+    -> emp_name varchar(100),
+    -> DOB DATE,
+    -> address varchar(100),
+    -> doj DATE,
+    -> mob_no int(12),
+    -> dept_no int(10),
+    -> Salary int(10),
+    -> PRIMARY KEY(emp_no)
+    -> );
+Query OK, 0 rows affected, 4 warnings (0.04 sec)
+
+(6)description of table employee
+mysql> desc employee;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| emp_no   | int          | NO   | PRI | NULL    |       |
+| emp_name | varchar(100) | YES  |     | NULL    |       |
+| DOB      | date         | YES  |     | NULL    |       |
+| address  | varchar(100) | YES  |     | NULL    |       |
+| doj      | date         | YES  |     | NULL    |       |
+| mob_no   | int          | YES  |     | NULL    |       |
+| dept_no  | int          | YES  |     | NULL    |       |
+| Salary   | int          | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+(7)create table Department with(dept_no,dept_name,location)
+mysql> create table Department(
+    -> dept_no int(10),
+    -> dept_name varchar(100),
+    -> Location varchar(100)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+(8)show description of table Department
+mysql> desc Department;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| dept_no   | int          | YES  |     | NULL    |       |
+| dept_name | varchar(100) | YES  |     | NULL    |       |
+| Location  | varchar(100) | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+(9)show tables in current database
+mysql> show tables;
++------------------------+
+| Tables_in_organisation |
++------------------------+
+| department             |
+| employee               |
++------------------------+
+2 rows in set (0.01 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
