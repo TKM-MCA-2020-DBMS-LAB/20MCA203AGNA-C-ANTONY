@@ -53,20 +53,42 @@ mysql> desc Employee;
 
 mysql> #7.add a new column
 mysql> ALTER TABLE Employee ADD Designation VARCHAR(15);
+ mysql> desc Employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | NO   | PRI | NULL    |       |
+| emp_name    | varchar(25) | YES  |     | NULL    |       |
+| DOB         | date        | YES  |     | NULL    |       |
+| Address     | varchar(30) | YES  |     | NULL    |       |
+| DOJ         | date        | YES  |     | NULL    |       |
+| mob_no      | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(10) | YES  | MUL | NULL    |       |
+| Salary      | int         | YES  |     | NULL    |       |
+| Designation | varchar(15) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
 
 
 mysql> #8.drop column location
 mysql> ALTER TABLE Department drop Location;
+mysql> desc Department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | NO   | PRI | NULL    |       |
+| dept_name | varchar(15) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+
 
 
 mysql> #9.drop tables
 mysql> drop tables Employee,Department;
+mysql> show tables;
+Empty set (0.03 sec)
 
 
 mysql> #10.drop database
 mysql> drop database Organisation;
-
-
 mysql> show databases;
 +--------------------+
 | Database           |
