@@ -83,7 +83,7 @@ mysql> CREATE PROCEDURE Getdetails()
     -> BEGIN
     -> select*from employee;
     -> END //
-Query OK, 0 rows affected (0.01 sec)
+Query OK,
 
 mysql> DELIMITER ;
 mysql> CALL Getdetails();
