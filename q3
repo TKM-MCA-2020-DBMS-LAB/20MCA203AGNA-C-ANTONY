@@ -1,0 +1,104 @@
+mysql> USE Organization;
+Database changed.
+
+mysql> select*from department;
++---------+------------+----------+
+| dept_no | dept_name  | location |
++---------+------------+----------+
+| DEPT001 | Developing | Kochi    |
+| DEPT002 | Testing    | Aluva    |
+| DEPT003 | Coding     | Kottayam |
+| DEPT004 | Analysing  | Thrissur |
+| DEPT005 | Safety     | Kannur   |
++---------+------------+----------+
+
+mysql> select*from employee;
++--------+----------+----------+------------+---------+-------------+---------+--------+--------------------+
+| emp_no | emp_name | DOB      | address    | doj     | mobile_no   | dept_no | salary | designation        |
++--------+----------+----------+------------+---------+-------------+---------+--------+--------------------+
+| ID256  | Agna     | 28/12/98 | Thrissur   | 1/7/21  | 98612332131 | DEPT001 |   7000 | Software Developer |
+| ID452  | Sree     | 25/5/96  | gulf       | 18/3/21 | 98612339988 | DEPT002 |  15000 | Security Engineer  |
+| ID456  | Blessy   | 12/7/99  | kollam     | 1/4/21  | 9861233234  | DEPT002 |  17000 | Security Engineer  |
+| ID673  | Nidhi    | 30/4/98  | Kochi      | 1/3/21  | 9861233008  | DEPT001 |  25000 | Software Engineer  |
+| ID984  | Rose     | 1/5/98   | trivandrum | 29/5/21 | 98612330009 | DEPT004 |   5000 | Typist             |
++--------+----------+----------+------------+---------+-------------+---------+--------+--------------------+
+
+
+mysql>  create view Manager as SELECT  emp_name,DOB,salary,location from employee,department;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select  distinct e.emp_name from employee e ,Manager m where e.salary >m.salary;
++----------+
+| emp_name |
++----------+
+| Agna     |
+| Sree     |
+| Blessy   |
+| Nidhi    |
++----------+
+
+
+mysql>  DROP VIEW MANAGER;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>  update manager set salary = 1.1 * salary where location ="trivandrum";
+
+mysql> delimiter //
+mysql> create procedure updatesal(IN Param1 int)
+    -> begin
+    -> update deptsalary
+    ->  set totalsalary= (select sum(salary)from employee  where dept_no=Param1)
+    -> where dept_no =param1;
+    -> end; //
+Query OK, 0 rows affected (0.03 sec)
+
+
+
+mysql> mysql> delimiter ;
+mysql> call updatesal(DEPT001);
+Query OK, 0 rows affected (0.00 sec)
+mysql> call updatesal(DEPT002);
+Query OK, 1 row affected (0.22 sec)
+
+mysql> call updatesal(DEPT004);
+Query OK, 1 row affected (0.24 sec)
+
+
+mysql> select * from deptsalary;
++---------+-------------+
+| dept_no | totalsalary |
++---------+-------------+
+| DEPT001 |       32000 |
+| DEPT002 |       32000 |
+| DEPT003 |           0 |
+| DEPT004 |       5000  |
+| DEPT005 |           0 |
++---------+-------------+
+
+mysql>    drop procedure updatesal;
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> DELIMITER //
+mysql> CREATE PROCEDURE Getdetails()
+    -> BEGIN
+    -> select*from employee;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DELIMITER ;
+mysql> CALL Getdetails();
++--------+----------+----------+------------+---------+-------------+---------+--------+--------------------+
+| emp_no | emp_name | DOB      | address    | doj     | mobile_no   | dept_no | salary | designation        |
++--------+----------+----------+------------+---------+-------------+---------+--------+--------------------+
+| ID256  | Agna     | 28/12/98 | Thrissur   | 1/7/21  | 98612332131 | DEPT001 |   7000 | Software Developer |
+| ID452  | Sree     | 25/5/96  | gulf       | 18/3/21 | 98612339988 | DEPT002 |  15000 | Security Engineer  |
+| ID456  | Blessy   | 12/7/99  | kollam     | 1/4/21  | 9861233234  | DEPT002 |  17000 | Security Engineer  |
+| ID673  | Nidhi    | 30/4/98  | Kochi      | 1/3/21  | 9861233008  | DEPT001 |  25000 | Software Engineer  |
+| ID984  | Rose     | 1/5/98   | trivandrum | 29/5/21 | 98612330009 | DEPT004 |   5000 | Typist             |
++--------+----------+----------+------------+---------+-------------+---------+--------+--------------------+
+5 rows in set (0.01 sec)
+
+
+
+
+
